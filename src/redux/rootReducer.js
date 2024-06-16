@@ -1,16 +1,25 @@
-// import { contactListReducer } from './contactListSlice';
-// import { contactReducer } from './contactSlice';
+import { contactsReducer } from './contactsSlice'
+import { filterReducer } from './filterSlice'
+import storage from 'redux-persist/lib/storage'
+import persistReducer from 'redux-persist/es/persistReducer'
 
-// export const rootReducer = {
-//     contactList: contactListPersistedReducer,
-//     contact: contactPersistedReducer,
+const persistConfig = {
+	key: 'items',
+	storage,
+	whitelist: ['value'],
+	// blacklist:['']
+}
+
+// const persistConfig2 = {
+// 	key: 'filter',
+// 	storage,
 // }
 
-// вебінар 14-06-2024
-// import { balanceReducer } from './balanceSlice';
-// import { itemsReducer } from './itemsSlice';
+const contactsPersistedReducer = persistReducer(persistConfig, contactsReducer)
+// const filterPersistedReducer = persistReducer(persistConfig2, filterReducer)
 
-// export const rootReducer = {
-//     balance: balanceReducer,
-//     items: itemsReducer,
-// }
+export const rootReducer = {
+	contacts: contactsPersistedReducer,
+    filters: filterReducer,
+    // filter: filterSlice.reducer,
+}

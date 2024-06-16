@@ -1,87 +1,28 @@
-// // ТЗ
-// //Слайс контактів
-// // У файлі contactsSlice.js оголоси слайс контактів, використовуючи функцію createSlice().
+import { createSlice } from '@reduxjs/toolkit'
 
-// // Екшени слайса для використання в dispatch:
-// //      addContact - додавання нового контакту до властивості items
-// //      deleteContact - видалення контакту за id з властивості items
+const initialContactsState = {
+     contacts: [
+    { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+    { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+    { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+    { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+]
+}
+ 
+const contactsSlice = createSlice({
+	name: 'contactsList',
+	initialState: initialContactsState,
+	reducers: {
+		addContact: (state, action ) => {
+            state.contacts = [...state.contacts, action.payload]
+        },
+        deleteContact(state, action) {
+            state.contacts = state.contacts.filter(contact => contact.id !== action.payload)
+        }
+	},
+})
 
-// // Оголоси функції-селектори для використання в useSelector:
-// //      selectContacts - повертає список контактів з властивості items.
+export const { addContact, deleteContact } = contactsSlice.actions;
+export const contactsReducer = contactsSlice.reducer
 
-// // З файла слайса експортуй редюсер, а також його екшени і селектори.
-
-// // Початковий стан
-// // Нехай початковий стан Redux виглядає наступним чином.
-// // {
-// //   contacts: {
-// // 		items: []
-// // 	},
-// //   filters: {
-// // 		name: ""
-// // 	}
-// // }
-// //Тут ми виділимо два слайси - контакти(поле contacts) і фільтри(поле filters).
-    
-// import { createSlice } from '@reduxjs/toolkit'
-// import {persistReducer} from 
-// const contactsSlice = createSlice({
-// 	name: 'contacts',
-// 	initialState: {
-// 		value: 1000,
-// 		comment: '',
-// 	},
-// 	reducers: {
-// 		deposit: (state, { payload }) => {
-// 			state.value += payload
-// 		},
-// 		withdraw: (state, { payload }) => {
-// 			return {
-// 				...state,
-// 				value: state.value - payload,
-// 			}
-// 		},
-// 	},
-// })
-
-
-
-
-
-// // вебінар 14-06-2024
-// // const handleDeposit = () => {
-// //     dispatch(actionDeposit(value)) 
-// // }
-
-// // = (value) => ({
-// //     type: 'balance/deposit',
-// //     payload: value,
-
-// // import { createAction } from '@reduxjs/toolkit';
-
-// // export const actionDeposit = createAction('balance/deposit');
-// // // console.log('actionDeposit>> ', actionDeposit(10));
-// // // console.log('actionDeposit>> ', actionDeposit.type);
-// // export const actionWithdraw = createAction('balance/withdraw');
-
-// // export const balanceReducer = (
-// //     state = {
-// //         value: 1000,
-// //         comment: '',
-// //     },
-// //     action) => {
-// //     switch (action.type) {
-// //         case actionDeposit.type:
-// //             return {
-// //                 ...state,
-// //                 value: state.value + action.payload,
-// //             }
-// //         case actionWithdraw.type:
-// //             return {
-// //                 ...state,
-// //                 value: state.value - action.payload,
-// //             }
-// //         default:
-// //             return state
-// //     }
-// // }
+//initialContactsState - 3-HW contacts.json
